@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
-
+import Link from "next/link";
 const Header = () => {
   return (
-    <div className="bg-[#02010100] border-b border-b-gray-400 h-[87px] flex items-center justify-center">
+    <div className=" bg-[#ffffffaa] border-b border-b-gray-200 h-[87px] flex items-center justify-center sticky backdrop-blur-[5px] w-full top-0 z-[9999999]">
       <div className="container mx-auto max-w-[1400px]">
         <div className="nav flex items-center justify-between">
           <div>
@@ -18,11 +18,17 @@ const Header = () => {
           </div>
           <div>
             <ul className="flex items-center gap-[48px] text-[16px] font-medium text-[#343434]">
-              <li>Home</li>
-              <li>Products</li>
-              <li>Blog</li>
-              <li>About</li>
-              <li>Contact Us</li>
+              <li>  <Link href={"/"}>Home</Link></li>
+              <li>
+                <Link href={"/shop"}>Products</Link>
+              </li>
+              <li>
+                <Link href={"/blog"}>Blog</Link>
+              </li>
+              <li>
+                <Link href={"/about"}>About</Link>
+              </li>
+              <li><Link href={"/contact"}>Contact Us</Link></li>
             </ul>
           </div>
           <div>
