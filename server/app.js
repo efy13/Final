@@ -1,18 +1,27 @@
 const express = require("express");
-const dotenv = require("dotenv").config();
-const bodyParser = require("body-parser");
+const env = require("dotenv").config();
 const ConnectDb = require("./db/ConnectDb");
+const AuthRouter = require("./routers/AuthRouter");
+const ProductsRouter = require("./routers/ProductRouter");
+const cookieParser = require("cookie-parser");
+
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 3001;
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+const PORT = 3001;
 ConnectDb();
-app.get("/", (req, res) => {
-  res.send({
-    message: "Welcome",
-  });
-});
+app.use(cookieParser());
+
+app.use("/api/auth", AuthRouter);
+app.use("/api", ProductsRouter);
 
 app.listen(PORT, () => {
-  console.log("server is running");
+  console.log(`Server is Runing ${PORT}`);
 });

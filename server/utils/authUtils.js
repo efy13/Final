@@ -1,20 +1,21 @@
-const UserInfoFromToken = (token) => {
-  if (!token) {
-    return null;
-  }
+const jwt = require("jsonwebtoken");
+
+const getUserFromToken = (token) => {
+  if (!token) return null;
+
   try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     return {
       id: payload.id,
       email: payload.email,
       roles: payload.roles || [],
     };
   } catch (error) {
-    console.error("Error decoding token:", error);
+    console.error("JWT decode error:", error.message);
     return null;
   }
 };
 
 module.exports = {
-  UserInfoFromToken,
+  getUserFromToken,
 };
