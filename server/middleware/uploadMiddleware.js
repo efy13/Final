@@ -1,15 +1,20 @@
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../lib/cloudinaryConfig");
+const path = require("path");
 
 function uploadMiddleware(folderName) {
+  if (!folderName) {
+    throw new Error("Folder name is required for uploadMiddleware");
+  }
+
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: (req, file) => {
-      const folderPath = `${folderName.trim()}`; 
-      const fileExtension = path.extname(file.originalname).substring(1);
-      const publicId = `${file.fieldname}-${Date.now()}`;
-      
+      const folderPath = `${folderName.trim()}`; // Klasör adı
+      const fileExtension = path.extname(file.originalname).substring(1); // Dosya uzantısı
+      const publicId = `${file.fieldname}-${Date.now()}`; // Benzersiz dosya adı
+
       return {
         folder: folderPath,
         public_id: publicId,

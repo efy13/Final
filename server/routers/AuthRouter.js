@@ -7,3 +7,5 @@ router.post("/register",AuthRegister)
 
 
 module.exports =router
+
+
